@@ -12,6 +12,7 @@ public class Main {
 	private static int[] englishScore; 
 	private static int[] totalScore;
 	private static double[] percentage;
+	private static int totalPassNumber,scienceFailedNumber,historyFailedNumber,englishFailedNumber,mathematicsFailedNumber;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ReadStudents readStudents = new ReadStudents();
@@ -32,12 +33,13 @@ public class Main {
 			System.out.println("2.Calculate the total score");
 			System.out.println("3.Calculate the total percentage");
 			System.out.println("4.Display the information of top 10 students");
+			System.out.println("5.Calculate pass and failed number");
 			System.out.println("other number.exit the system");
 			
 			int choice = scanner.nextInt();
 			switch (choice) {
 			case 1:
-				displayAllInfomation();
+				displayInfomation(firstName.length);
 				break;
 			case 2:
 				calculateTotalScores();
@@ -46,7 +48,10 @@ public class Main {
 				calculateTotalPercentage();
 				break;
 			case 4:
-				displayTop10Infomation();
+				displayInfomation(10);
+				break;
+			case 5:
+				calculatePassAndFail();
 				break;
 			default:
 				System.out.println("Thank you for using the System, welcome back!!");
@@ -59,21 +64,38 @@ public class Main {
 //		System.out.println(Arrays.toString(scienceScore));
 //		System.out.println(Arrays.toString(historyScore));
 	}
-	private static void displayTop10Infomation() {
-		for(int i=0 ; i<10 ; i++) {
-			System.out.print(studentId[i]+"\t");
-			System.out.print(firstName[i]+ (firstName[i].length()<8?"\t\t":"\t"));  
-			System.out.print(lastName[i]+ (lastName[i].length()<8?"\t\t":"\t"));    
-			if(totalScore != null) {
-				System.out.println(totalScore[i]);
-			}else {
-				System.out.println();
+	
+	private static void calculatePassAndFail() {
+		if(percentage==null) {
+			System.out.println("you haven't calculate total percentage yet");
+			return;
+		}
+		
+		for(int i=0 ; i<percentage.length ; i++) {
+			if(percentage[i]>=60) {
+				totalPassNumber++;
 			}
 		}
+		
 	}
+
 	private static void calculateTotalPercentage() {
 		//what is total percentage???
+		if(totalScore==null) {
+			System.out.println("you haven't calculate total score yet");
+			return;
+		}
 		
+		if(percentage == null) {
+			percentage = new double[200];
+			//checking element in totalScore array one by one
+			for(int i=0 ; i<totalScore.length ; i++) {
+				percentage[i] = totalScore[i]/4.0;  
+			}
+			System.out.println("calculation done");
+		}else {
+			System.out.println("total percentage are already calculated");
+		}
 	}
 	private static void calculateTotalScores() {
 		if(totalScore==null) {
@@ -86,17 +108,20 @@ public class Main {
 			System.out.println("total scores are already calculated");
 		}
 	}
-	private static void displayAllInfomation() {
-		// TODO Auto-generated method stub
-		for(int i=0 ; i<studentId.length ; i++) {
+	
+	private static void displayInfomation(int count) {
+		for(int i=0 ; i<count ; i++) {
 			System.out.print(studentId[i]+"\t");
 			System.out.print(firstName[i]+ (firstName[i].length()<8?"\t\t":"\t"));  
 			System.out.print(lastName[i]+ (lastName[i].length()<8?"\t\t":"\t"));    
 			if(totalScore != null) {
-				System.out.println(totalScore[i]);
-			}else {
-				System.out.println();
+				System.out.print(totalScore[i]+"\t");
 			}
+			if(percentage != null) {
+				System.out.print(percentage[i]);
+			}
+			
+			System.out.println();//new line in the end
 		}
 	}
 

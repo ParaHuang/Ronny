@@ -35,7 +35,7 @@ public final class ReadStudents {
 
 			// Read line by line
 			while (scanner.hasNextLine()) {
-
+				
 				rowScanner = new Scanner(scanner.nextLine());
 				rowScanner.useDelimiter(",");
 				//214145,Louisa,Arnold,23,2,3,14
