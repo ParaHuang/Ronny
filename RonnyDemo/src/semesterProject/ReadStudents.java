@@ -3,8 +3,8 @@ package semesterProject;
 import java.io.File;
 import java.util.Scanner;
 
-public final class ReadStudents {
 
+public final class ReadStudents {
 	/*
 	 * The purpose of this class is to read the random_students_data.csv file
 	 * The format of the file is text with comma-separated fields.

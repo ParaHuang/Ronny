@@ -2,7 +2,12 @@ package semesterProject;
 
 import java.util.Scanner;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Main {
+	private static Logger log = LogManager.getLogger(ReadStudents.class);
+	
 	private static int[] studentId; 
 	private static String[] firstName;
 	private static String[] lastName;
@@ -13,17 +18,22 @@ public class Main {
 	private static int[] totalScore;
 	private static double[] percentage;
 	private static int totalPassNumber,scienceFailedNumber,historyFailedNumber,englishFailedNumber,mathematicsFailedNumber;
+	private static double sciencePercentage,historyPercentage,englishPercentage,mathematicsPercentage;
+	private static int failedNumber;
+	private static boolean isCalculatedPass = false;
+	private static boolean isCalculatedPassPercentage = false;
+	private static boolean isFialedCalculated = false;
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		ReadStudents readStudents = new ReadStudents();
+		ReadStudents rs = new ReadStudents();
 
-		studentId = readStudents.getStudentId();
-		firstName = readStudents.getFirstName();
-		lastName = readStudents.getLastName();
-		scienceScore = readStudents.getScienceScore();
-		historyScore = readStudents.getHistoryScore();
-		mathematicsScore = readStudents.getMathematicsScore();
-		englishScore = readStudents.getEnglishScore();
+		studentId = ReadStudents.getStudentId();
+		firstName = ReadStudents.getFirstName();
+		lastName = ReadStudents.getLastName();
+		scienceScore = ReadStudents.getScienceScore();
+		historyScore = ReadStudents.getHistoryScore();
+		mathematicsScore = ReadStudents.getMathematicsScore();
+		englishScore = ReadStudents.getEnglishScore();
 
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Welcome to the Student Management System");
@@ -34,6 +44,8 @@ public class Main {
 			System.out.println("3.Calculate the total percentage");
 			System.out.println("4.Display the information of top 10 students");
 			System.out.println("5.Calculate pass and failed number");
+			System.out.println("6.Calculate pass percentage");
+			System.out.println("7.Calculate the number of students who failed at least 2 subjects");
 			System.out.println("other number.exit the system");
 			
 			int choice = scanner.nextInt();
@@ -53,34 +65,104 @@ public class Main {
 			case 5:
 				calculatePassAndFail();
 				break;
+			case 6:
+				calculatePassPercentage();
+				break;
+			case 7:
+				calculateFailedNumber();
+				break;
 			default:
 				System.out.println("Thank you for using the System, welcome back!!");
 				return;
 			}
 		}
-//		System.out.println(Arrays.toString(studentId));
-//		System.out.println(Arrays.toString(firstName));
-//		System.out.println(Arrays.toString(lastName));
-//		System.out.println(Arrays.toString(scienceScore));
-//		System.out.println(Arrays.toString(historyScore));
 	}
 	
+	private static void calculateFailedNumber() {
+		if(!isFialedCalculated) {
+			isFialedCalculated = true;
+			for(int i=0 ; i<studentId.length ; i++) {
+				int count = 0;
+				if(scienceScore[i]<60) {
+					count++;
+				}
+				if(historyScore[i]<60) {
+					count++;
+				}
+				if(englishScore[i]<60) {
+					count++;
+				}
+				if(mathematicsScore[i]<60) {
+					count++;
+				}
+				if(count>2) {
+					failedNumber++;
+				}
+			}
+			
+			System.out.println("calculation done");
+		}else {
+			System.out.println("it's already calculated ");
+		}
+	}
+
+	private static void calculatePassPercentage() {
+		if(!isCalculatedPass) {
+			System.out.println("please calculate pass and failed number firstly");
+			return;
+		}
+		
+		if(!isCalculatedPassPercentage) {
+			isCalculatedPassPercentage = true;
+			int num = firstName.length;
+			sciencePercentage = (num-scienceFailedNumber)/(double)num*100;
+			historyPercentage = (num-historyFailedNumber)/(double)num*100;
+			englishPercentage = (num-englishFailedNumber)/(double)num*100;
+			mathematicsPercentage = (num-mathematicsFailedNumber)/(double)num*100;
+			System.out.println("calculation done");
+			
+		}else {
+			System.out.println("pass percentages are already calculated ");
+		}
+	}
+
 	private static void calculatePassAndFail() {
 		if(percentage==null) {
 			System.out.println("you haven't calculate total percentage yet");
 			return;
 		}
-		
-		for(int i=0 ; i<percentage.length ; i++) {
-			if(percentage[i]>=60) {
-				totalPassNumber++;
+		if(!isCalculatedPass) {
+			isCalculatedPass = true;
+			for(int i=0 ; i<percentage.length ; i++) {
+				if(percentage[i]>=60) {
+					totalPassNumber++;
+				}
+				
+				if(scienceScore[i]<60) {
+					scienceFailedNumber++;
+				}
+				
+				if(historyScore[i]<60) {
+					historyFailedNumber++;
+				}
+				
+				if(englishScore[i]<60) {
+					englishFailedNumber++;
+				}
+				
+				if(mathematicsScore[i]<60) {
+					mathematicsFailedNumber++;
+				}
 			}
+			System.out.println("calculation done");
+		}else {
+			System.out.println("total pass number and each subject failed number are already calculated ");
 		}
 		
 	}
 
 	private static void calculateTotalPercentage() {
-		//what is total percentage???
+		
 		if(totalScore==null) {
 			System.out.println("you haven't calculate total score yet");
 			return;
@@ -97,6 +179,7 @@ public class Main {
 			System.out.println("total percentage are already calculated");
 		}
 	}
+	
 	private static void calculateTotalScores() {
 		if(totalScore==null) {
 			totalScore = new int[200];
@@ -123,7 +206,35 @@ public class Main {
 			
 			System.out.println();//new line in the end
 		}
+		if(count==studentId.length && isCalculatedPass) {
+			System.out.println(totalPassNumber + " students passed");
+			System.out.println(scienceFailedNumber+" students failed in science");
+			System.out.println(historyFailedNumber+" students failed in history");
+			System.out.println(englishFailedNumber+" students failed in english");
+			System.out.println(mathematicsFailedNumber+" students failed in math");
+		}
+		
+		if(count==studentId.length && isCalculatedPassPercentage) {
+			System.out.println("science pass percentage is "+sciencePercentage + "%");
+			System.out.println("history pass percentage is "+historyPercentage + "%");
+			System.out.println("english pass percentage is "+englishPercentage + "%");
+			System.out.println("mathematics pass percentage is "+mathematicsPercentage + "%");
+		}
+		
+		if(count==studentId.length && isFialedCalculated) {
+			System.out.println(failedNumber+" students failed more than 2 subjects");
+		}
 	}
-
 }
+
+
+
+
+
+
+
+
+
+
+
 
