@@ -2,11 +2,8 @@ package semesterProject;
 
 import java.util.Scanner;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 public class Main {
-	private static Logger log = LogManager.getLogger(ReadStudents.class);
 	
 	private static int[] studentId; 
 	private static String[] firstName;
