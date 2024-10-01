@@ -1,0 +1,64 @@
+Semester Project
+You are going to implement a software application that runs (basic) text analysis with
+the goal of comparing articles about the same topic/news.
+This is a group project. Groups of at most 3 students are allowed. All the documentation
+that will be turned in for evaluation should include the list of tasks carried out by each
+student.
+Data Set
+You can manually download articles about the same topic/news from any online source
+(e.g. tech Web sites reviewing a specific product, Web sites of newspapers etc.) and
+store them into text files. Please make sure to download at least 3 articles per topic.
+All the files related to a specific topic/news should be store in a separate directory. The
+set of all the directories (i.e. topic/news) represent your library of data.
+Milestones for the implementation
+The execution of this project will be organized into the 3 milestones identified below
+Milestone 1
+By the end of this milestone your software application should be able to preprocess the
+files you downloaded into your library as follow:
+— by removing stop words (e.g. and, but etc.) Please you this reference to find a
+complete list: https://en.wikipedia.org/wiki/Stop_words
+— calculate basic statistics (e.g. number of words, number of statements etc.)
+— rank words by frequencies
+For this milestone the architecture of your application should use at least 3 classes.
+Your application should allow to preprocess one topic/news (i.e. all files in a single
+directory of your library) at a time.
+Milestone 2
+The goal of this milestone is to highlight differences between articles related to each
+topic. You should implement heuristics that address all the following questions
+— Which article used the richest vocabulary?
+— What is the list of words that were repeated the most per each article?
+— Which one expressed a “positive attitude” vs a “negative attitude”?
+There are various approaches that you can use to answer this question. I
+encourage you to experiment with multiple ideas. However, counting the number
+of times positive vs negative words is an acceptable approach for the completion
+of this milestone.
+Milestone 3
+The goal is to allow the end user to interact with your software application. The user
+interface should be text based (i.e. you are not required to build a graphic user
+interface) and the basic features for the completion of the milestone should include
+— the selection of the topic from your library
+— the output of the analysis run on the topic/news selected by the end user
+— addition of a new set of articles (i.e. text files) provided by the end user
+In addition to the previous milestones, which represent all the development work, you
+will also be asked to refactor the software application that you have worked on. This
+documentation should include
+- what should be refactor by listing the proposed classes
+- the motivation of refactoring. Please provide at least one reason per class that
+was chosen to be refactored
+3rd party libraries may be used for the completion of this project.
+Deliverables per Milestone
+- source code
+- documentation of architecture (i.e. UML diagram)
+- documentation on how to use it can be parts of the comments within the source
+code
+Evaluation
+Be advised that at the end of each milestone you will be asked to work on the source
+code developed by another group. This activity will give you the opportunity to be
+exposed to different architectures and approaches. There is no unique solution in
+object-oriented programming, the best experience is to “experience” as many
+architectural ideas as possible.
+At the end of each milestone you will have the opportunity to evaluate the source code
+that you receive. The criteria of evaluation should include the following:
+- do the deliverables meet the requirements?
+- name 3 pros of the proposed architecture
+- name 3 cons of the proposed architecture

@@ -1,0 +1,6 @@
+Semester Project
+You going to implement software application that runs (basic) text analysis with
+the goal of comparing articles about same topic/news.
+This group project. Groups of at most 3 students allowed. All documentation
+that will be turned in for evaluation should include list of tasks carried out by each
+student.
